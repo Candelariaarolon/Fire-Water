@@ -13,12 +13,14 @@ public class PlayerController : MonoBehaviour
     public LayerMask capaSuelo;
 
     private Rigidbody2D rb;
+    private SpriteRenderer sr;
     private float inputHorizontal;
     private bool quiereSaltar;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -26,10 +28,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(teclaIzquierda))
         {
             inputHorizontal = -1f;
+            sr.flipX = true;
         }
         else if (Input.GetKey(teclaDerecha))
         {
             inputHorizontal = 1f;
+            sr.flipX = false;
         }
         else
         {
@@ -43,15 +47,17 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
-        rb.linearVelocity = new Vector2(inputHorizontal * velocidadHorizontal, rb.linearVelocity.y);
+{
+    rb.linearVelocity = new Vector2(inputHorizontal * velocidadHorizontal, rb.linearVelocity.y);
 
-        if (quiereSaltar && EstaEnSuelo())
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
-            quiereSaltar = false;
-        }
+    if (quiereSaltar && EstaEnSuelo())
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
+        AudioManager.Instance.PlayJump();
     }
+
+    quiereSaltar = false;
+}
 
     private bool EstaEnSuelo()
     {

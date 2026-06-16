@@ -66,14 +66,15 @@ public class LevelManager : MonoBehaviour
     }
 
     public void Perder()
-    {
-        if (nivelTerminado) return;
-        nivelTerminado = true;
+{
+    if (nivelTerminado) return;
+    nivelTerminado = true;
 
-        Debug.Log("¡DERROTA!");
-        panelDerrota.SetActive(true);
-        Time.timeScale = 0f;
-    }
+    Debug.Log("¡DERROTA!");
+    AudioManager.Instance.PlayDeath();
+    panelDerrota.SetActive(true);
+    Time.timeScale = 0f;
+}
 
     public void ReiniciarNivel()
     {
@@ -101,13 +102,14 @@ public class LevelManager : MonoBehaviour
     }
 
     private void Ganar()
-    {
-        nivelTerminado = true;
+{
+    nivelTerminado = true;
 
-        Debug.Log("¡VICTORIA! Gemas rojas: " + GemasRojas + "/" + TotalGemasRojas + " | Gemas azules: " + GemasAzules + "/" + TotalGemasAzules);
+    Debug.Log("¡VICTORIA! Gemas rojas: " + GemasRojas + "/" + TotalGemasRojas + " | Gemas azules: " + GemasAzules + "/" + TotalGemasAzules);
 
-        textoGemasVictoria.text = "Gemas rojas: " + GemasRojas + "/" + TotalGemasRojas + "\nGemas azules: " + GemasAzules + "/" + TotalGemasAzules;
-        panelVictoria.SetActive(true);
-        Time.timeScale = 0f;
-    }
+    AudioManager.Instance.PlayVictory();
+    textoGemasVictoria.text = "Gemas rojas: " + GemasRojas + "/" + TotalGemasRojas + "\nGemas azules: " + GemasAzules + "/" + TotalGemasAzules;
+    panelVictoria.SetActive(true);
+    Time.timeScale = 0f;
+}
 }

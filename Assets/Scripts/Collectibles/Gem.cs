@@ -12,6 +12,7 @@ public class Gem : MonoBehaviour
         {
             Debug.Log("Gema " + gameObject.name + " recolectada por " + other.gameObject.name);
             LevelManager.Instance.SumarGema(gameObject);
+            AudioManager.Instance.PlayGem();
             Destroy(gameObject);
         }
     }
